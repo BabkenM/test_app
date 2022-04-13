@@ -99,6 +99,9 @@ dependencies:
   # and add a banner to show info about device.
   flavorbanner: ^1.0.2
 
+  # A carousel slider widget, support infinite scroll and custom child widget.
+  carousel_slider: ^4.0.0
+
 # Dependencies that are only needed in the development phase
 # of the package itself are listed under dev_dependencies.
 dev_dependencies:

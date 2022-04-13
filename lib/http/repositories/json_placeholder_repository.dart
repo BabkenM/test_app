@@ -10,16 +10,52 @@ class JsonPlaceholderRepository {
     return res.data;
   }
 
-  static Future<List> getPosts() async {
+  static Future<List> getPosts(int userId) async {
     final res = await dio.get(
       '/posts',
+      queryParameters: {
+        'userId': userId,
+      },
     );
     return res.data;
+  }
+
+  static Future<List> getPostDetails(int id) async {
+    final res = await dio.get(
+      '/posts/$id/comments',
+    );
+    return res.data;
+  }
+
+  static Future<void> addComment({
+    required int postId,
+    required String email,
+    required String name,
+    required String body,
+  }) async {
+    await dio.post(
+      '/comments',
+      queryParameters: {
+        'postId': postId,
+      },
+      data: {
+        'email': email,
+        'name': name,
+        'body': body,
+      },
+    );
   }
 
   static Future<List> getAlbums() async {
     final res = await dio.get(
       '/albums',
+    );
+    return res.data;
+  }
+
+  static Future<List> getAlbumPhotos(int id) async {
+    final res = await dio.get(
+      '/albums/$id/photos',
     );
     return res.data;
   }

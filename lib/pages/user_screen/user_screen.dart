@@ -24,23 +24,28 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> with AfterLayoutMixin {
-  final state = UserState();
+  late final UserState state;
   final loadingState = LoadingState();
+
+  @override
+  void initState() {
+    super.initState();
+    state = UserState(userId: widget.user.id);
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    getPreviews();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Expanded(
-              child: Text(
-                widget.user.username.titleCase(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
+        title: Text(
+          widget.user.username.titleCase(),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         centerTitle: true,
       ),
@@ -56,15 +61,23 @@ class _UserScreenState extends State<UserScreen> with AfterLayoutMixin {
                       UserInfoWidget(user: widget.user),
                       Observer(
                         builder: (_) => state.postLoadingState.isLoading
-                            ? const CircularProgressIndicator()
+                            ? Center(
+                                child: const CircularProgressIndicator()
+                                    .paddingVertical(),
+                              )
                             : PostsPreviewWidget(
-                                posts: state.posts.take(3).toList(),
+                                posts: state.posts,
                               ),
                       ),
                       Observer(
-                        builder: (_) => AlbumsPreviewWidget(
-                          albums: state.albums.take(3).toList(),
-                        ),
+                        builder: (_) => state.albumLoadingState.isLoading
+                            ? Center(
+                                child: const CircularProgressIndicator()
+                                    .paddingVertical(),
+                              )
+                            : AlbumsPreviewWidget(
+                                albums: state.albums,
+                              ),
                       ),
                     ],
                   ),
@@ -78,11 +91,6 @@ class _UserScreenState extends State<UserScreen> with AfterLayoutMixin {
         ),
       ),
     );
-  }
-
-  @override
-  void afterFirstLayout(BuildContext context) {
-    getPreviews();
   }
 
   void getPreviews() {

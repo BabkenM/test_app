@@ -93,7 +93,7 @@ final lightTheme = baseTheme.copyWith(
     enabledBorder: InputBorder.none,
     focusedBorder: InputBorder.none,
     contentPadding: EdgeInsets.zero,
-    filled: false,
+    filled: true,
     isDense: true,
     fillColor: AppColors.colorSecondaryLight,
     errorStyle: baseTheme.textTheme.subtitle2!.copyWith(
@@ -130,7 +130,7 @@ final lightTheme = baseTheme.copyWith(
           vertical: 16,
         ),
       ),
-      foregroundColor: MaterialStateProperty.all(AppColors.colorSurfaceLight),
+      foregroundColor: MaterialStateProperty.all(AppColors.colorSurfaceDark),
       textStyle: MaterialStateProperty.all(baseTheme.textTheme.button),
       shape: MaterialStateProperty.resolveWith((state) {
         return const RoundedRectangleBorder(

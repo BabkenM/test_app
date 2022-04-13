@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../extensions/extensions.dart';
 import '../../../models/post_model/post_model.dart';
+import '../../../providers/screen_service.dart';
+import '../../../router.gr.dart';
 
 class PostsPreviewWidget extends StatelessWidget {
   final List<PostModel> posts;
@@ -16,15 +18,22 @@ class PostsPreviewWidget extends StatelessWidget {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Spacer(),
+            const Text('Posts'),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                router.push(
+                  PostsRoute(
+                    posts: posts,
+                  ),
+                );
+              },
               child: const Text('See all'),
             ),
           ],
         ).paddingOnly(bottom: 8),
-        for (final post in posts)
+        for (final post in posts.take(3))
           Container(
             padding: const EdgeInsets.all(5),
             margin: const EdgeInsets.all(5),
@@ -36,7 +45,7 @@ class PostsPreviewWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         post.title.titleCase(),
-                        style: context.theme.headline5,
+                        style: context.theme.subtitle1,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -48,7 +57,7 @@ class PostsPreviewWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         post.body,
-                        style: context.theme.headline6,
+                        style: context.theme.bodyText2,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

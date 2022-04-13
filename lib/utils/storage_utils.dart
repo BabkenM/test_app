@@ -12,6 +12,18 @@ class StorageUtils {
   static Future<SharedPreferences> get sharedInstance =>
       SharedPreferences.getInstance();
 
+  static Future<String?> getCommentsByPostId(String id) async {
+    return _getString(id);
+  }
+
+  static Future<void> removeCommentsByPostId(String id) async {
+    await _remove(id);
+  }
+
+  static Future<void> setCommentsByPostId(String id, String data) async {
+    await _setString(id, data);
+  }
+
   static Future<String?> getAccessToken() async {
     return _getString(Preferences.authToken);
   }

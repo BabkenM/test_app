@@ -9,21 +9,6 @@ part of 'user_state.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$UserState on _UserState, Store {
-  final _$postsAtom = Atom(name: '_UserState.posts');
-
-  @override
-  ObservableList<PostModel> get posts {
-    _$postsAtom.reportRead();
-    return super.posts;
-  }
-
-  @override
-  set posts(ObservableList<PostModel> value) {
-    _$postsAtom.reportWrite(value, super.posts, () {
-      super.posts = value;
-    });
-  }
-
   final _$albumsAtom = Atom(name: '_UserState.albums');
 
   @override
@@ -39,6 +24,21 @@ mixin _$UserState on _UserState, Store {
     });
   }
 
+  final _$postsAtom = Atom(name: '_UserState.posts');
+
+  @override
+  ObservableList<PostModel> get posts {
+    _$postsAtom.reportRead();
+    return super.posts;
+  }
+
+  @override
+  set posts(ObservableList<PostModel> value) {
+    _$postsAtom.reportWrite(value, super.posts, () {
+      super.posts = value;
+    });
+  }
+
   final _$getPostsAsyncAction = AsyncAction('_UserState.getPosts');
 
   @override
@@ -46,18 +46,18 @@ mixin _$UserState on _UserState, Store {
     return _$getPostsAsyncAction.run(() => super.getPosts());
   }
 
-  final _$getAlbumsAsyncAction = AsyncAction('_UserState.getAlbums');
+  final _$getAlbumPhotosAsyncAction = AsyncAction('_UserState.getAlbumPhotos');
 
   @override
-  Future<void> getAlbums() {
-    return _$getAlbumsAsyncAction.run(() => super.getAlbums());
+  Future<void> getAlbumPhotos(int id) {
+    return _$getAlbumPhotosAsyncAction.run(() => super.getAlbumPhotos(id));
   }
 
   @override
   String toString() {
     return '''
-posts: ${posts},
-albums: ${albums}
+albums: ${albums},
+posts: ${posts}
     ''';
   }
 }

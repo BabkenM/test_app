@@ -17,7 +17,14 @@ class UserInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          'User Information',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: context.theme.headline6,
+        ),
         Row(
           children: [
             Expanded(

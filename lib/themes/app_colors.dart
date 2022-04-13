@@ -43,7 +43,7 @@ class AppColors {
   static const colorSecondaryDark = Color(0xFF000000);
   static const colorOnSecondaryLight = Color(0xFF39363F);
   static const colorOnSecondaryDark = Color(0xFF000000);
-  static const colorSurfaceLight = Color(0xFF39363F);
+  static const colorSurfaceLight = Color(0xFFDCCCB7);
   static const colorSurfaceDark = Color(0xFF121212);
   static const colorOnSurfaceLight = Color(0xFFFDFDFC);
   static const colorOnSurfaceDark = Color(0xFFFFFFFF);

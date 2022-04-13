@@ -3,14 +3,12 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../mixins/after_layout_mixin.dart';
-import '../../providers/screen_service.dart';
-import '../../router.gr.dart';
 import '../../store/home_state/home_state.dart';
 import '../../store/loading_state/loading_state.dart';
 import '../../widgets/loading_full_screen_widget.dart';
+import 'widgets/user_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -22,14 +20,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin {
-  final state = GetIt.I<HomeState>();
+  final state = HomeState();
   final loadingState = LoadingState();
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    getUsers();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        centerTitle: true,
       ),
       body: SafeArea(
         top: false,
@@ -37,43 +41,14 @@ class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin {
           children: [
             RefreshIndicator(
               onRefresh: getUsers,
-              child: Observer(
-                /// TODO listView builder
-                builder: (_) => ListView(
-                  children: [
-                    for (final user in state.users)
-                      ListTile(
-                        onTap: () {
-                          router.push(UserRoute(user: user));
-                        },
-                        leading: Text(
-                          '${user.id}',
-                        ),
-                        title: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                user.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                        subtitle: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                user.username,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                  ],
-                ),
+              child: CustomScrollView(
+                slivers: [
+                  Observer(
+                    builder: (_) => UsersList(
+                      users: state.users.toList(),
+                    ),
+                  )
+                ],
               ),
             ),
             LoadingFullScreenWidget(
@@ -83,11 +58,6 @@ class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin {
         ),
       ),
     );
-  }
-
-  @override
-  Future<void> afterFirstLayout(BuildContext context) async {
-    await getUsers();
   }
 
   Future<void> getUsers() async {

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../extensions/extensions.dart';
 import '../../../models/album_model/album_model.dart';
+import '../../../providers/screen_service.dart';
+import '../../../router.gr.dart';
+import '../../../widgets/custom_extended_image_network.dart';
 
 class AlbumsPreviewWidget extends StatelessWidget {
   final List<AlbumModel> albums;
@@ -16,19 +19,39 @@ class AlbumsPreviewWidget extends StatelessWidget {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Spacer(),
+            const Text('Albums'),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                router.push(AlbumsRoute(albums: albums));
+              },
               child: const Text('See all'),
             ),
           ],
         ).paddingOnly(bottom: 8),
-        for (final album in albums)
+        for (final album in albums.take(3))
           Container(
             padding: const EdgeInsets.all(5),
             margin: const EdgeInsets.all(5),
             color: context.theme.secondary,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        album.title.titleCase(),
+                        style: context.theme.subtitle1,
+                      ),
+                    ),
+                  ],
+                ),
+                CustomExtendedImageNetwork(
+                  url: album.photos[0].url,
+                ),
+              ],
+            ),
           )
       ],
     ).paddingHorizontal();

@@ -23,11 +23,15 @@ class _$AlbumModelTearOff {
   const _$AlbumModelTearOff();
 
   _AlbumModel call(
-      {required int id, required int userId, required String title}) {
+      {required int id,
+      required int userId,
+      required String title,
+      List<PhotoModel> photos = const <PhotoModel>[]}) {
     return _AlbumModel(
       id: id,
       userId: userId,
       title: title,
+      photos: photos,
     );
   }
 
@@ -44,6 +48,7 @@ mixin _$AlbumModel {
   int get id => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  List<PhotoModel> get photos => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,7 +61,7 @@ abstract class $AlbumModelCopyWith<$Res> {
   factory $AlbumModelCopyWith(
           AlbumModel value, $Res Function(AlbumModel) then) =
       _$AlbumModelCopyWithImpl<$Res>;
-  $Res call({int id, int userId, String title});
+  $Res call({int id, int userId, String title, List<PhotoModel> photos});
 }
 
 /// @nodoc
@@ -72,6 +77,7 @@ class _$AlbumModelCopyWithImpl<$Res> implements $AlbumModelCopyWith<$Res> {
     Object? id = freezed,
     Object? userId = freezed,
     Object? title = freezed,
+    Object? photos = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -86,6 +92,10 @@ class _$AlbumModelCopyWithImpl<$Res> implements $AlbumModelCopyWith<$Res> {
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      photos: photos == freezed
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<PhotoModel>,
     ));
   }
 }
@@ -96,7 +106,7 @@ abstract class _$AlbumModelCopyWith<$Res> implements $AlbumModelCopyWith<$Res> {
           _AlbumModel value, $Res Function(_AlbumModel) then) =
       __$AlbumModelCopyWithImpl<$Res>;
   @override
-  $Res call({int id, int userId, String title});
+  $Res call({int id, int userId, String title, List<PhotoModel> photos});
 }
 
 /// @nodoc
@@ -114,6 +124,7 @@ class __$AlbumModelCopyWithImpl<$Res> extends _$AlbumModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? userId = freezed,
     Object? title = freezed,
+    Object? photos = freezed,
   }) {
     return _then(_AlbumModel(
       id: id == freezed
@@ -128,6 +139,10 @@ class __$AlbumModelCopyWithImpl<$Res> extends _$AlbumModelCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      photos: photos == freezed
+          ? _value.photos
+          : photos // ignore: cast_nullable_to_non_nullable
+              as List<PhotoModel>,
     ));
   }
 }
@@ -136,7 +151,10 @@ class __$AlbumModelCopyWithImpl<$Res> extends _$AlbumModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AlbumModel implements _AlbumModel {
   const _$_AlbumModel(
-      {required this.id, required this.userId, required this.title});
+      {required this.id,
+      required this.userId,
+      required this.title,
+      this.photos = const <PhotoModel>[]});
 
   factory _$_AlbumModel.fromJson(Map<String, dynamic> json) =>
       _$$_AlbumModelFromJson(json);
@@ -147,10 +165,13 @@ class _$_AlbumModel implements _AlbumModel {
   final int userId;
   @override
   final String title;
+  @JsonKey()
+  @override
+  final List<PhotoModel> photos;
 
   @override
   String toString() {
-    return 'AlbumModel(id: $id, userId: $userId, title: $title)';
+    return 'AlbumModel(id: $id, userId: $userId, title: $title, photos: $photos)';
   }
 
   @override
@@ -160,7 +181,8 @@ class _$_AlbumModel implements _AlbumModel {
             other is _AlbumModel &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality().equals(other.title, title));
+            const DeepCollectionEquality().equals(other.title, title) &&
+            const DeepCollectionEquality().equals(other.photos, photos));
   }
 
   @override
@@ -168,7 +190,8 @@ class _$_AlbumModel implements _AlbumModel {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(title));
+      const DeepCollectionEquality().hash(title),
+      const DeepCollectionEquality().hash(photos));
 
   @JsonKey(ignore: true)
   @override
@@ -185,7 +208,8 @@ abstract class _AlbumModel implements AlbumModel {
   const factory _AlbumModel(
       {required int id,
       required int userId,
-      required String title}) = _$_AlbumModel;
+      required String title,
+      List<PhotoModel> photos}) = _$_AlbumModel;
 
   factory _AlbumModel.fromJson(Map<String, dynamic> json) =
       _$_AlbumModel.fromJson;
@@ -196,6 +220,8 @@ abstract class _AlbumModel implements AlbumModel {
   int get userId;
   @override
   String get title;
+  @override
+  List<PhotoModel> get photos;
   @override
   @JsonKey(ignore: true)
   _$AlbumModelCopyWith<_AlbumModel> get copyWith =>

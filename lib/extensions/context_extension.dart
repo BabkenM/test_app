@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../themes/app_colors.dart';
-import '../utils/color_utils.dart';
 
 extension BuildContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -158,20 +157,6 @@ extension TextStyleHelpers on TextStyle {
   TextStyle get lightGray => copyWith(color: AppColors.lightGray);
 
   TextStyle get error => copyWith(color: AppColors.error);
-
-  TextStyle dynamic({
-    Color lightColor = AppColors.grayMedium,
-    Color darkColor = AppColors.darkGray,
-    bool invertColor = false,
-  }) {
-    return copyWith(
-      color: brightnessColor(
-        lightColor: lightColor,
-        darkColor: darkColor,
-        invert: invertColor,
-      ),
-    );
-  }
 
   TextStyle size([double? fontSize]) => copyWith(fontSize: fontSize);
 
