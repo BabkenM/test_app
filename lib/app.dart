@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flavorbanner/widgets/flavor_banner.dart';
+import 'package:flavorbanner/flavorbanner.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:get_it/get_it.dart';
 

@@ -7,20 +7,22 @@ part of 'config.dart';
 // **************************************************************************
 
 _$_Config _$$_ConfigFromJson(Map json) => _$_Config(
-      env: $enumDecode(_$FlavorEnumMap, json['env']),
+      env: json['env'],
       production: json['production'] as bool,
       apiUrl: json['apiUrl'] as String,
     );
 
-Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) => <String, dynamic>{
-      'env': _$FlavorEnumMap[instance.env],
-      'production': instance.production,
-      'apiUrl': instance.apiUrl,
-    };
+Map<String, dynamic> _$$_ConfigToJson(_$_Config instance) {
+  final val = <String, dynamic>{};
 
-const _$FlavorEnumMap = {
-  Flavor.TEST: 'TEST',
-  Flavor.DEV: 'DEV',
-  Flavor.STAGING: 'STAGING',
-  Flavor.PROD: 'PROD',
-};
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('env', instance.env);
+  val['production'] = instance.production;
+  val['apiUrl'] = instance.apiUrl;
+  return val;
+}
